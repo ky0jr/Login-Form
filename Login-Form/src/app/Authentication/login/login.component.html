@@ -1,0 +1,73 @@
+<div>
+  <div class="row">
+    <h2>LOGIN</h2>
+  </div>
+  {{loginForm.value|json}}
+  <div class="col-3">
+    <div class="alert alert-danger" *ngIf="error">
+      <p>{{ error }}</p>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+      <div class="form-group">
+        <label>Email</label>
+        <input [class.is-invalid]="email.invalid && email.touched" type="email" class="form-control" formControlName = "email" placeholder="Email">
+        <div *ngIf="email.invalid && email.touched">
+          <small class="text-danger" *ngIf="email.errors?.required">Email is required </small>
+          <small class="text-danger" *ngIf="email.errors?.pattern">Email is invalid </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label i18n="Password|Password to login@@loginPassword">Password</label>
+        <input [class.is-invalid]="password.invalid && password.touched" type="password" class="form-control" formControlName = "password" placeholder="Password">
+        <div *ngIf="password.invalid && password.touched">
+          <small class="text-danger" *ngIf="password.errors?.required">Password is required </small>
+          <small class="text-danger" *ngIf="password.errors.minLength">Password too short </small>
+        </div>
+      </div>
+      <div class="pull-left">
+        <button class="btn btn-primary" type="submit" [disabled]="loginForm.invalid" i18n="Login Button|Button to login@@loginButton">LOGIN</button>
+      </div>
+      <div class="pull-right">
+        <button class="btn btn-social btn-google" (click)="signInWithGoogle()" i18n>
+          <span class="fa fa-google"></span> Sign in with Google
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="col-xl-12">
+    <div *ngIf="user" class="card text-center">
+      <h6 class="card-header">
+        Social Login Demo
+      </h6>
+      <div class="card-block"></div>
+      <img class="card-img-top img-responsive photo" src="{{ user.photoUrl }}">
+      <div class="card-block">
+        <h4 class="card-title">{{ user.name }}</h4>
+        <p class="card-text">{{ user.email }}</p>
+      </div>
+      <div class="card-block">
+        <button class="btn btn-danger" (click)="signOut()">Sign out</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<div class="form-group">-->
+<!--  <label>Department</label>-->
+<!--  <select [class.is-invalid]="!checkSelection()" class="custom-select" formControlName = "department">-->
+<!--    <option value="default">Choose department..</option>-->
+<!--    <option *ngFor="let d of departments" [value] = "d.id">{{ d.name }}</option>-->
+<!--  </select>-->
+<!--  <small class="text-danger" *ngIf="!checkSelection()">Please choose one.</small>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--  <label>Username</label>-->
+<!--  <input [class.is-invalid]="!checkUserName()" type="text" class="form-control" formControlName = "userName" placeholder="Username">-->
+<!--  <small class="text-danger" *ngIf="!checkUserName()">{{userNameError}}</small>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--  <label>Password</label>-->
+<!--  <input [class.is-invalid]="!checkPassword()" type="password" class="form-control" formControlName = "password" placeholder="Password">-->
+<!--  <small class="text-danger" *ngIf="!checkPassword()">{{passError}}</small>-->
+<!--</div>-->
+
+
